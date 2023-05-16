@@ -1,0 +1,18 @@
+{
+  "name": "grh_bci_gaming_platform",
+  "version": "1.0.0",
+  "description": "Daily.co prebuilt for video, audio and screen sharing",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "Alex Liu",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^22.0.3",
+    "prettier": "^2.8.3"
+  },
+  "dependencies": {
+    "@daily-co/daily-js": "^0.44.1"
+  }
+}
