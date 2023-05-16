@@ -8,7 +8,7 @@ This demo highlights BCI gaming platform enabled by Daily.co
 
 ## How the demo works
 
-This demo hosts game sessions that allow control, video and audio sharing. Electron.js along with Daily API are used.
+This demo hosts game sessions that allow online control, video and audio sharing. Electron.js along with Daily API are used.
 
 ## Running locally
 
