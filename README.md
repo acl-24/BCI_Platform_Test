@@ -1,6 +1,6 @@
-# Daily Prebuilt Electron demo
+# BCI Gaming Platform
 
-This demo highlights [Daily Prebuilt](https://www.daily.co/blog/prebuilt-ui/), and how it can be used to create an Electron video call app.
+This demo highlights BCI gaming platform enabled by Daily.co
 
 ## Prerequisites
 
@@ -8,7 +8,7 @@ This demo highlights [Daily Prebuilt](https://www.daily.co/blog/prebuilt-ui/), a
 
 ## How the demo works
 
-This demo embeds the Daily Prebuit iframe into an Electron application.
+This demo hosts game sessions that allow control, video and audio sharing. Electron.js along with Daily API are used.
 
 ## Running locally
 
@@ -20,8 +20,3 @@ This demo embeds the Daily Prebuit iframe into an Electron application.
 
 Let us know how experimenting with this demo goes! Feel free to reach out to us any time at `help@daily.co`.
 
-## What's next
-
-- Try customizing the Electron app menu with Daily call controls.
-- Try modifying the default dimensions of the application window.
-- Try customizing the Daily iframe appearance.
