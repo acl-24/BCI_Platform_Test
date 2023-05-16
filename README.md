@@ -16,7 +16,3 @@ This demo hosts game sessions that allow control, video and audio sharing. Elect
 1. Install dependencies `npm i`
 1. Run `npm start`
 
-## Contributing and feedback
-
-Let us know how experimenting with this demo goes! Feel free to reach out to us any time at `help@daily.co`.
-
