@@ -1,51 +1,50 @@
 <!DOCTYPE html>
 <html>
-<script>
-  let state = {
-    "ENTRY" : 1,
-    "ROOM" : 2,
-  };
-
-</script>
 <head>
-  <meta charset="UTF-8" />
-  <link rel="stylesheet" href="./style.css" />
-
-  <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
-<!--  <meta-->
-<!--          http-equiv="Content-Security-Policy"-->
-<!--          content="default-src 'self'; frame-src 'self' https://*.daily.co; script-src 'self' https://unpkg.com/@daily-co/daily-js; worker-src 'self';"-->
-<!--  />-->
-<!--  <meta-->
-<!--          http-equiv="X-Content-Security-Policy"-->
-<!--          content="default-src 'self'; frame-src 'self' https://*.daily.co; script-src 'self' https://unpkg.com/@daily-co/daily-js; worker-src 'self';"-->
-<!--  />-->
-  <title>Daily + Electron <3</title>
+  <title>GRH BCI Gaming Platform</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script src="https://unpkg.com/@daily-co/daily-js"></script>
+  <link rel="stylesheet" href="./index.css" />
+  <script src="./index.js"></script>
 </head>
-<body>
-<div id="head_title" class="title">
-  <h1>Welcome to the app</h1>
-  <button id="enter_btn" onclick="hideHead()" class="btn">submit</button>
+<body onload="createCallframe()">
+<header class="header">
+  <div class="left-header">
+    <img
+            src="assets/bci_logo.png"
+            class="bci-logo"
+            alt="BCI logo reads Daily"
+    />
+  </div>
+  <div class="right-header">
+    <strong>
+      <p class="header-title">GRH BCI</p>
+    </strong>
+  </div>
+</header>
+<div class="container">
+  <div id="wrapper" class="wrapper">
+    <div id="start-container" class="start-container">
+      <h1 class="title">GRH BCI Gaming Platform</h1>
+      <p class="prompt"></p>
+      <button
+              id="show-list-rooms"
+              class="button start-button"
+              onclick="populateGroupList()"
+      >
+        Show List of Rooms
+      </button>
+      <p class="prompt"></p>
+      <ul id="groupList">
+        <!-- List items will be dynamically added here -->
+      </ul>
+    </div>
+<!--    <div id="quit_section">-->
+<!--      <button id="return_btn" onclick="clickReturn()" class="button start-button">-->
+<!--        return-->
+<!--      </button>-->
+<!--    </div>-->
+  </div>
 </div>
-
-<!--<div id="submit_button" class="">-->
-<!-- -->
-<!--</div>-->
-
-<script>
-  function hideHead(){
-    const head = document.getElementById("head_title")
-    const video = document.getElementById("container")
-    if (head.style.display === "none"){
-      head.style.display = "block"
-      return
-    }
-    head.style.display = "none"
-    video.style.display = "block"
-  }
-</script>
-<div id="container"></div>
-<script crossorigin src="https://unpkg.com/@daily-co/daily-js"></script>
-<script src="daily.js"></script>
 </body>
 </html>

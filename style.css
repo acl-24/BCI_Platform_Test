@@ -10,9 +10,9 @@
     --font-family: GraphikRegular, 'Helvetica Neue', Sans-Serif;
 }
 
-#head_title {
+#entry_page {
     display: flex;
-    background-color: var(--grey-lightest);
+    background-color: var(--dark-grey);
     justify-content: center;
     align-items: center;
     height: 100%;
@@ -23,6 +23,9 @@
     flex-direction: column;
 }
 
+#entry_title_text {
+    margin-bottom: 100px;
+}
    /* CSS */
 .btn {
    padding: 0.6em 2em;
@@ -37,6 +40,7 @@
    user-select: none;
    -webkit-user-select: none;
    touch-action: manipulation;
+    width: 20%;
 }
 
 .btn:before {

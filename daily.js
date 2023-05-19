@@ -12,3 +12,8 @@ window.addEventListener("DOMContentLoaded", () => {
   // TODO: Replace the following URL with your own room URL.
   callFrame.join({ url: "https://grhbcitest.daily.co/test1" });
 });
+
+document.getElementById('entry_create_room_btn').addEventListener('click', () => {
+  ipcRenderer.send('createRoom');
+  ipcRenderer.send('greet', "why are you")
+});
