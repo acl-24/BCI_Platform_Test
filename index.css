@@ -385,13 +385,18 @@ body {
     border-bottom: none;
 }
 
-.group-list-item h3,
-.group-list-item p {
+.group-list-item h3{
     flex: 1;
-    margin-right: 100px;
+    margin-right: 200px;
 }
 
-.group-list-item h3 {
+.group-list-item p {
+    flex: 1;
+    margin-right: 400px;
+    display: none;
+}
+
+.group-list-item h4 {
     margin-right: 50px; /* Adjust the margin value as needed */
 }
 

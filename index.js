@@ -3,9 +3,9 @@ const apiKey = '1a1f99bcddc9683e98ad57f556b127d222fc54b4ffa415a0205ed05e785ffc97
 const apiUrlRoom = 'https://api.daily.co/v1/rooms/';
 // Sample data for the group list
 const data = [
-    { name: 'Room 1', url: 'https://grhbcitest.daily.co/test1' },
-    { name: 'Room 2', url: 'https://grhbcitest.daily.co/test2' },
-    { name: 'Room 3', url: 'https://grhbcitest.daily.co/test3' },
+    { name: 'Room 1', url: 'https://grhbcitest.daily.co/test1', room: 'test1' },
+    { name: 'Room 2', url: 'https://grhbcitest.daily.co/test2', room: 'test2' },
+    { name: 'Room 3', url: 'https://grhbcitest.daily.co/test3', room: 'test3' },
 ];
 const { ipcRenderer } = window.electron;
 
@@ -22,6 +22,12 @@ async function updateParticipantCount(){
     u = document.getElementById("show-list-rooms")
     u.innerHTML = n.toString()
 }
+
+function hideQuit(){
+    const section = document.getElementById('quit_section')
+    section.style.display = 'none'
+}
+
 //function used to initiate a callFrame instance, which lies within the wrapper.
 //callFrame is able to adjust the UI as user joins and leaves the room
 async function createCallframe() {
@@ -44,7 +50,7 @@ async function createCallframe() {
 
     callFrame.iframe().style.height = '500px';
     callFrame.iframe().style.display = 'none';
-    // toggleIframe();
+    hideQuit()
 }
 
 //joinCall enters a room using the url
@@ -73,39 +79,46 @@ async function populateGroupList() {
     groupList.innerHTML = '';
 
     // Loop through the data and create list items
-    data.forEach(async (item, index) => {
-        const participantCount = await getParticipantCount(item.url)
-        // Create a list item element
-        const listItem = document.createElement('li');
-        listItem.classList.add('group-list-item');
+    for (const [index, item] of data.entries()) {
+        try {
+            // Retrieve the participant count
+            const participantCount = await getMeetingParticipantCount(item.room);
 
-        // Create the content for the list item
-        const content = `
-      <h3>${item.name}</h3>
-      <p>${item.url}</p>
-      <p>${participantCount} participants</p>
-      <button class="white-button" onclick="clickJoinRoom(${index})">join room</button>
-    `;
+            // Create a list item element
+            const listItem = document.createElement('li');
+            listItem.classList.add('group-list-item');
 
-        // Append the list item to the group list
-        groupList.appendChild(listItem);
+            // Create the content for the list item
+            const content = `
+        <h3>${item.name}</h3>
+        <p>${item.url}</p>
+        <h4>in-room: ${participantCount}</h4>
+        <button class="white-button" onclick="clickJoinRoom(${index})">join room</button>
+      `;
 
-        // Set the content of the list item
-        listItem.innerHTML = content;
-    })
-}
+            // Set the content of the list item
+            listItem.innerHTML = content;
 
-async function getParticipantCount(roomURL) {
-    try {
-        const count = await callFrame.participantCounts({
-            url: roomURL,
-        });
-        return (count.hidden + count.present);
-    } catch (error) {
-        console.error(error);
-        return null;
+            // Append the list item to the group list
+            groupList.appendChild(listItem);
+        } catch (error) {
+            console.error(error);
+        }
     }
 }
+
+
+
+async function getMeetingParticipantCount(roomName) {
+    return new Promise((resolve, reject) => {
+        ipcRenderer.send('getParticipantCount', roomName);
+
+        window.api.onResponse((data) => {
+            resolve(data);
+        });
+    });
+}
+
 
 async function clickJoinRoom(index){
     const listItem = document.querySelectorAll('.group-list-item')[index];
@@ -117,10 +130,10 @@ async function clickJoinRoom(index){
     const urlElement = tempElement.querySelector('p');
     const itemUrl = urlElement.textContent;
 
-    await startSession(itemUrl)
-
     const section = document.getElementById('quit_section')
     section.style.display = 'block'
+
+    await startSession(itemUrl)
 }
 
 async function startSession(url){
@@ -134,15 +147,13 @@ async function shareControl(url){
 
     // Receive a message from the main process
     ipcRenderer.once('pythonProcessStarted', (event, data) => {
-    console.log('Python process started:', data);
+        console.log('Python process started:', data);
     });
 }
 
 function clickReturn(){
-    section = document.getElementById("quit_section")
+    hideQuit()
     callFrame.iframe().style.display = 'none';
-    section.style.display = 'none'
-
     endSession();
 }
 
@@ -195,7 +206,6 @@ function toggleLobby() {
 }
 
 function toggleIframe() {
-    const quitScreen = document.getElementById('quit_section');
     if (callFrame.iframe().style.display === 'block'){
         callFrame.iframe().style.display = 'none';
         // quitScreen.iframe().style.display = 'none';

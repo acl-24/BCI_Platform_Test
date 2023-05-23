@@ -13,6 +13,8 @@
     "prettier": "^2.8.3"
   },
   "dependencies": {
-    "@daily-co/daily-js": "^0.44.1"
+    "@daily-co/daily-js": "^0.44.1",
+    "axios": "^1.4.0",
+    "electron-fetch": "^1.9.1"
   }
 }
