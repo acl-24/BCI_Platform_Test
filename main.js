@@ -1,13 +1,7 @@
 const { app, BrowserWindow, ipcMain} = require("electron");
 const path = require("path")
-const WebSocket = require(`ws`);
-const wss = new WebSocket(`ws://localhost:3000`);
+const { spawn } = require('child_process');
 
-wss.onmessage = function (e) {
-  console.log("I'm client")
-  let message = JSON.parse(e.data);
-  console.log(message);
-};
 
 function createWindow() {
   const win = new BrowserWindow({
@@ -19,17 +13,41 @@ function createWindow() {
   });
 
   win.loadFile("index.html");
+  win.removeMenu();
 }
 
-// ipcMain.on("greet", (event, args) => {
-//   console.log(args)
-// })
-//
-// ipcMain.on("createRoom", (event, args) => {
-//   console.log("ipc working fine")
-//   createRoom();
-// })
+ipcMain.on('test', (event, msg) => {
+  console.log('message');
+})
+ipcMain.on('startPythonProcess', (event, url) => {
+  const controlSession = spawnPythonProcess(url);
 
+  // while (true){
+  //   controlSession.stdout.on('data', (data) => {
+  //     console.log('Received data from Python:', data.toString());
+  //     // Process the data as needed
+  //
+  //   });
+  //
+  //   controlSession.stderr.on('data', (data) => {
+  //     console.error('Error from Python:', data.toString());
+  //     // Handle the error
+  //     break
+  //   });
+  //
+  //   controlSession.on('close', (code) => {
+  //     console.log(`Python process exited with code ${code}`);
+  //     // Perform any cleanup or additional tasks
+  //     break
+  //   });
+  // }
+
+  event.reply('pythonProcessStarted', 'Python process started successfully');
+});
+
+function spawnPythonProcess(url) {
+  return spawn('python', ['./python/share.py', url]);
+}
 
 
 app.whenReady().then(() => {

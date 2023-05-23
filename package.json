@@ -9,7 +9,7 @@
   "author": "Alex Liu",
   "license": "ISC",
   "devDependencies": {
-    "electron": "^22.3.9",
+    "electron": "^22.3.10",
     "prettier": "^2.8.3"
   },
   "dependencies": {

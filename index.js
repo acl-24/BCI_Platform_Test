@@ -7,10 +7,7 @@ const data = [
     { name: 'Room 2', url: 'https://grhbcitest.daily.co/test2' },
     { name: 'Room 3', url: 'https://grhbcitest.daily.co/test3' },
 ];
-
-
-
-setInterval(updateParticipantCount(), 1000);
+const { ipcRenderer } = window.electron;
 
 async function updateParticipantCount(){
     let n = 0
@@ -137,8 +134,24 @@ async function clickJoinRoom(index){
     const urlElement = tempElement.querySelector('p');
     const itemUrl = urlElement.textContent;
 
-    await joinCall(itemUrl)
+    await startSession(itemUrl)
 }
+
+async function startSession(url){
+    await joinCall(url)
+    await shareControl(url)
+}
+
+async function shareControl(url){
+    // Send a message to the main process
+    ipcRenderer.send('startPythonProcess', url);
+
+    // Receive a message from the main process
+    ipcRenderer.once('pythonProcessStarted', (event, data) => {
+    console.log('Python process started:', data);
+    });
+}
+
 
 
 
