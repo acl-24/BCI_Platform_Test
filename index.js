@@ -28,7 +28,11 @@ async function createCallframe() {
     //parent element of callFrame
     const callWrapper = document.getElementById('wrapper');
     //callFrame can be used to communicate with Daily.co on event listening
-    callFrame = window.DailyIframe.createFrame(callWrapper);
+    callFrame = window.DailyIframe.createFrame(callWrapper,
+        {
+            showFullscreenButton: true,
+        }
+    );
 
     callFrame
         .on('loaded', showEvent)
@@ -62,27 +66,6 @@ async function joinCall(url) {
     }
 }
 
-function leaveSession(){
-    callFrame.leave();
-    toggleMainInterface()
-}
-// callFrame.on('participant-updated', (event) => {
-//     const { action, participant } = event;
-//
-//     if (action === 'left') {
-//         // Client has left the meeting
-//         console.log(`Participant ${participant.user_id} has left the meeting.`);
-//         // Perform additional actions as needed
-//     }
-// });
-
-// async function clickReturn(){
-//     callFrame.iframe().style.display = "none";
-//     const homescreen = document.getElementById("start-container");
-//     const quitscreen = document.getElementById("quit_section")
-//     homescreen.style.display = "block";
-//     quitscreen.style.display = "none"
-// }
 async function populateGroupList() {
     // Get the group list element
     const groupList = document.getElementById('groupList');
@@ -135,6 +118,9 @@ async function clickJoinRoom(index){
     const itemUrl = urlElement.textContent;
 
     await startSession(itemUrl)
+
+    const section = document.getElementById('quit_section')
+    section.style.display = 'block'
 }
 
 async function startSession(url){
@@ -152,8 +138,36 @@ async function shareControl(url){
     });
 }
 
+function clickReturn(){
+    section = document.getElementById("quit_section")
+    callFrame.iframe().style.display = 'none';
+    section.style.display = 'none'
 
+    endSession();
+}
 
+async function endSession(){
+    await leaveMeeting();
+    await endShareControl();
+}
+
+async function leaveMeeting(){
+    try {
+        await callFrame.leave();
+    } catch (e) {
+        console.error(e);
+    }
+}
+
+async function endShareControl(){
+    // Send a message to the main process
+    ipcRenderer.send('endPythonProcess', url);
+
+    // Receive a message from the main process
+    ipcRenderer.once('pythonProcessEnded', (event, data) => {
+        console.log('Python process ended:', data);
+    });
+}
 
 
 
