@@ -127,25 +127,13 @@ async function populateGroupList() {
     }
 }
 
-
-//get meeting participant count by sending request to main process using getParticipantCount channel
-// async function getMeetingParticipantCount(roomName) {
-//     return new Promise((resolve) => {
-//         //sends the roomName in channel getParticipantCount
-//         ipcRenderer.send('getParticipantCount', roomName);
-//
-//         //receive participant count data using window.api.onParticipantCountResponse defined in preload.js
-//         window.api.onParticipantCountResponse((data) => {
-//             resolve(data);
-//         });
-//     });
-// }
-
+//get participant count in room, by sending thru getParticipantCount channel on ipcRenderer
 async function getMeetingParticipantCount(roomName) {
     return new Promise((resolve) => {
         // Send the roomName in channel getParticipantCount
         ipcRenderer.send('getParticipantCount', roomName);
 
+        //main process responds with the participant count
         window.api.onParticipantCountResponse((data) => {
             resolve(data);
         });
@@ -153,7 +141,8 @@ async function getMeetingParticipantCount(roomName) {
 }
 
 
-
+//click listener for join button, which hides the lobby section and shows the video section
+//calls startSession on the list item's url
 async function clickJoinRoom(index){
     const listItem = document.querySelectorAll('.group-list-item')[index];
     // Create a temporary element to parse the HTML string
@@ -167,31 +156,37 @@ async function clickJoinRoom(index){
     const section = document.getElementById('quit_section')
     section.style.display = 'block'
 
+    //start session
     await startSession(itemUrl)
 }
 
+//session will both render the user to join a call and start share control, based on the url parameter
 async function startSession(url){
     await joinCall(url)
     await shareControl(url)
 }
 
+//calls main process on startPythonProcess channel and sets the current session url of user
 async function shareControl(url){
     // Send a message to the main process
     ipcRenderer.send('startPythonProcess', url);
     currentURL = url;
 }
 
+//click listener for return button, which hides the video section and calls end session with current URL
 function clickReturn(){
     hideQuit()
     callFrame.iframe().style.display = 'none';
     endSession(currentURL);
 }
 
+//leaves the meeting and end control sharing based on the current session url
 async function endSession(url){
     await leaveMeeting();
     await endShareControl(url);
 }
 
+//user leaves meeting
 async function leaveMeeting(){
     try {
         await callFrame.leave();
@@ -200,6 +195,7 @@ async function leaveMeeting(){
     }
 }
 
+//calls main process on endPythonProcess channel to end session for url
 async function endShareControl(url){
     // Send a message to the main process
     ipcRenderer.send('endPythonProcess', url);

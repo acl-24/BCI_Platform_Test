@@ -1,3 +1,6 @@
+/*
+    preload.js is the preloading script for importing the packages and setting up ipcRenderer actions
+ */
 const { contextBridge, ipcRenderer } = require('electron');
 
 contextBridge.exposeInMainWorld('electron', {

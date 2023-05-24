@@ -4,9 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="89841b7c-8444-48a6-9786-df9539487da7" name="Changes" comment="removed irrelevant files">
+    <list default="true" id="89841b7c-8444-48a6-9786-df9539487da7" name="Changes" comment="removed redundant css and python">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/preload.js" beforeDir="false" afterPath="$PROJECT_DIR$/preload.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,7 +53,7 @@
       <updated>1684534729120</updated>
       <workItem from="1684534730126" duration="522000" />
       <workItem from="1684853262156" duration="22313000" />
-      <workItem from="1684943290788" duration="7967000" />
+      <workItem from="1684943290788" duration="10169000" />
     </task>
     <task id="LOCAL-00001" summary="Third edition with python">
       <created>1684859063892</created>
@@ -95,7 +97,21 @@
       <option name="project" value="LOCAL" />
       <updated>1684951384629</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="refactored css">
+      <created>1684962727385</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1684962727385</updated>
+    </task>
+    <task id="LOCAL-00008" summary="removed redundant css and python">
+      <created>1684962933900</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1684962933900</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -118,6 +134,8 @@
     <MESSAGE value="Added participant count" />
     <MESSAGE value="Bug fix participant + ipc" />
     <MESSAGE value="removed irrelevant files" />
-    <option name="LAST_COMMIT_MESSAGE" value="removed irrelevant files" />
+    <MESSAGE value="refactored css" />
+    <MESSAGE value="removed redundant css and python" />
+    <option name="LAST_COMMIT_MESSAGE" value="removed redundant css and python" />
   </component>
 </project>
