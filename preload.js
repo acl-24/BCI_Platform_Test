@@ -4,6 +4,15 @@ contextBridge.exposeInMainWorld('electron', {
     ipcRenderer: ipcRenderer,
 });
 
-contextBridge.exposeInMainWorld(    "api", {onResponse: (callback) => {
-        ipcRenderer.on("participantCountRetrieved", (event, args) => {callback(args)});
-}})
+contextBridge.exposeInMainWorld(    "api",
+    {
+        onParticipantCountResponse: (callback) => {
+            ipcRenderer.on("participantCountRetrieved", (event, args) => {
+                callback(args)
+            });
+        },
+        offParticipantCountResponse: () => {
+            ipcRenderer.removeAllListeners('participantCountRetrieved');
+        }
+    }
+)

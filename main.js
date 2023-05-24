@@ -46,18 +46,19 @@ ipcMain.on('test', (event, msg) => {
 })
 ipcMain.on('startPythonProcess', (event, url) => {
   controlSession = spawnPythonProcess(url);
-  event.reply('pythonProcessStarted', 'Python process started successfully');
+  // event.reply('pythonProcessStarted', 'Python process started successfully');
 });
 
 ipcMain.on('endPythonProcess', (event) => {
-  controlSession.kill();
-  event.reply('pythonProcessEnded', 'Python process ended successfully');
+    if (controlSession !== undefined && controlSession !== null) {
+        controlSession.kill();
+    }
+  // event.reply('pythonProcessEnded', 'Python process ended successfully');
 });
 
 ipcMain.on('getParticipantCount', (event, roomName) => {
   getParticipantCount(roomName)
       .then(count => {
-        console.log(count);
         event.reply('participantCountRetrieved', count.toString());
       })
       .catch(error => {
