@@ -205,35 +205,6 @@ body {
     font-family: var(--font-family);
 }
 
-.controls-stats {
-    display: flex;
-    flex-direction: column;
-    flex-shrink: 0;
-    border-bottom: 1px solid var(--grey);
-    padding-bottom: 24px;
-    margin: 0px 24px;
-}
-
-.controls-custom-example {
-    margin: 24px;
-    padding-bottom: 24px;
-}
-
-.stats-wrapper {
-    display: flex;
-    justify-content: space-between;
-}
-
-.stats-row {
-    display: flex;
-    justify-content: space-between;
-}
-
-.stats {
-    display: flex;
-    justify-content: space-between;
-}
-
 .custom-buttons {
     display: flex;
     flex-wrap: wrap;
@@ -265,36 +236,6 @@ body {
     cursor: pointer;
 }
 
-.url-form {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    justify-content: space-around;
-    height: 100px;
-}
-
-.url-prompt {
-    font-size: 12px;
-    line-height: 16px;
-    font-weight: 400;
-    color: var(--dark-grey);
-    margin-bottom: 0px;
-}
-
-.url-click {
-    text-decoration: underline;
-    cursor: pointer;
-}
-
-.url-input {
-    width: 280px;
-    height: 32px;
-    padding: 8px 16px;
-    border-radius: 8px;
-    border: 1px solid var(--grey);
-    font-family: var(--font-family);
-}
-
 .disabled-button {
     background-color: var(--grey-lightest);
     border: 1px solid var(--grey);
@@ -310,26 +251,6 @@ body {
 
 .button:active {
     color: black;
-}
-
-.error-message {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.error-title {
-    color: var(--red-dark);
-    font-size: 16px;
-    line-height: 24px;
-    margin: 0px;
-}
-
-.error-description {
-    font-size: 12px;
-    line-height: 16px;
-    padding: 0 16px;
-    text-align: center;
 }
 
 @media screen and (max-width: 700px) {

@@ -4,12 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="89841b7c-8444-48a6-9786-df9539487da7" name="Changes" comment="Added participant count">
+    <list default="true" id="89841b7c-8444-48a6-9786-df9539487da7" name="Changes" comment="removed irrelevant files">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/index.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/preload.js" beforeDir="false" afterPath="$PROJECT_DIR$/preload.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,7 +51,7 @@
       <updated>1684534729120</updated>
       <workItem from="1684534730126" duration="522000" />
       <workItem from="1684853262156" duration="22313000" />
-      <workItem from="1684943290788" duration="7021000" />
+      <workItem from="1684943290788" duration="7967000" />
     </task>
     <task id="LOCAL-00001" summary="Third edition with python">
       <created>1684859063892</created>
@@ -84,7 +81,21 @@
       <option name="project" value="LOCAL" />
       <updated>1684880287626</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Bug fix participant + ipc">
+      <created>1684951228470</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1684951228470</updated>
+    </task>
+    <task id="LOCAL-00006" summary="removed irrelevant files">
+      <created>1684951384629</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1684951384629</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -105,6 +116,8 @@
     <MESSAGE value="Third edition with python" />
     <MESSAGE value="Added quit session" />
     <MESSAGE value="Added participant count" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added participant count" />
+    <MESSAGE value="Bug fix participant + ipc" />
+    <MESSAGE value="removed irrelevant files" />
+    <option name="LAST_COMMIT_MESSAGE" value="removed irrelevant files" />
   </component>
 </project>
