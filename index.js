@@ -21,28 +21,53 @@ const { ipcRenderer } = window.electron;
 window.setInterval('updateParticipantCount()', 2000);
 
 
-//updates the list item participant count by calling the getMeetingParticipantCount(room) function
-async function updateParticipantCount(){
-    let index = 0;
-    //find the grouplist element in html
-    let list = document.getElementById('groupList'),
-        items = list.childNodes;
+// //updates the list item participant count by calling the getMeetingParticipantCount(room) function
+// async function updateParticipantCount(){
+//     let index = 0;
+//     //find the grouplist element in html
+//     let list = document.getElementById('groupList'),
+//         items = list.childNodes;
+//
+//     //for each list item, retrieve the participant count and update li innerHtml accordingly
+//     for (let i = 0, length = items.length; i < length; i++)
+//     {
+//         if (items[i].nodeType !== 1) {
+//             continue;
+//         }
+//         //retrieve participant count
+//         const participantCount = await getMeetingParticipantCount(data[index].room);
+//         const countElement = items[i].querySelector('h4')
+//         countElement.textContent = 'in-room: ' + participantCount.toString();
+//         index ++;
+//     }
+//
+//     window.api.offParticipantCountResponse();
+// }
 
-    //for each list item, retrieve the participant count and update li innerHtml accordingly
-    for (let i = 0, length = items.length; i < length; i++)
-    {
+async function updateParticipantCount() {
+    let index = 0;
+    // Find the groupList element in the HTML
+    let list = document.getElementById('groupList');
+    let items = list.childNodes;
+
+    // For each list item, retrieve the participant count and update li innerHTML accordingly
+    for (let i = 0, length = items.length; i < length; i++) {
         if (items[i].nodeType !== 1) {
             continue;
         }
-        //retrieve participant count
+        // Retrieve participant count
         const participantCount = await getMeetingParticipantCount(data[index].room);
-        const countElement = items[i].querySelector('h4')
+
+        // Access the countElement directly by index within childNodes and modify its text content
+        const countElement = document.getElementsByTagName('h4')[index];
         countElement.textContent = 'in-room: ' + participantCount.toString();
-        index ++;
+
+        index++;
     }
 
     window.api.offParticipantCountResponse();
 }
+
 
 //function used to initiate a callFrame instance, which lies within the wrapper.
 //callFrame is able to adjust the UI as user joins and leaves the room
@@ -90,6 +115,12 @@ async function joinCall(url) {
         toggleError();
         console.error(e);
     }
+}
+
+function clickShowRooms(){
+    const btn = document.getElementById('show-list-rooms')
+    btn.style.display = 'none';
+    populateGroupList();
 }
 
 //create list items for ul using the data global variable, fills in the room, name and url and join room button

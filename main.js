@@ -13,7 +13,9 @@ const axios = require('axios')
 
 //TO DO: change api key to daily.co's api key
 const apiKey = '1a1f99bcddc9683e98ad57f556b127d222fc54b4ffa415a0205ed05e785ffc97';
+// In the main process of your Electron application
 
+// Create your BrowserWindow and load your HTML file
 //controlSession, used to hold the python process upon creation
 let controlSession;
 
@@ -37,7 +39,7 @@ function createWindow() {
 //creates a python process, passing in url as session ID
 function spawnPythonProcess(url) {
     //running python in share.py file, parameter: url
-  return spawn('python', ['./python/share.py', url]);
+  return spawn('python', ['./python/test.py', url]);
 }
 
 //retrieve participant count from daily api, with apiKey
@@ -51,6 +53,7 @@ async function getParticipantCount(roomName) {
                 },
             });
         const {data} = response;
+        console.log(data)
         return data.total_count;
     } catch (error) {
         console.error('Error occurred while fetching meeting participant count:', error);
