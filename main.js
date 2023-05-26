@@ -64,8 +64,12 @@ async function getParticipantCount(roomName) {
 //ipcMain handlers
 //spawn python process using url
 ipcMain.on('startPythonProcess', (event, url) => {
-  controlSession = spawnPythonProcess(url);
-  // event.reply('pythonProcessStarted', 'Python process started successfully');
+    controlSession = spawnPythonProcess(url);
+    controlSession.stderr.on('data', (data) => {
+        const errorMessage = data.toString(); // Convert the error data to string
+        console.error('Error occurred in the Python process:', errorMessage);
+        // Handle the error as per your requirements
+    });
 });
 
 //kill python process that has been created and running
@@ -73,7 +77,6 @@ ipcMain.on('endPythonProcess', (event) => {
     if (controlSession !== undefined && controlSession !== null) {
         controlSession.kill();
     }
-  // event.reply('pythonProcessEnded', 'Python process ended successfully');
 });
 
 //respond in channel participantCountRetrieved upon receiving roomName from getParticipantCount channel

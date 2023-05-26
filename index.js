@@ -21,29 +21,6 @@ const { ipcRenderer } = window.electron;
 window.setInterval('updateParticipantCount()', 2000);
 
 
-// //updates the list item participant count by calling the getMeetingParticipantCount(room) function
-// async function updateParticipantCount(){
-//     let index = 0;
-//     //find the grouplist element in html
-//     let list = document.getElementById('groupList'),
-//         items = list.childNodes;
-//
-//     //for each list item, retrieve the participant count and update li innerHtml accordingly
-//     for (let i = 0, length = items.length; i < length; i++)
-//     {
-//         if (items[i].nodeType !== 1) {
-//             continue;
-//         }
-//         //retrieve participant count
-//         const participantCount = await getMeetingParticipantCount(data[index].room);
-//         const countElement = items[i].querySelector('h4')
-//         countElement.textContent = 'in-room: ' + participantCount.toString();
-//         index ++;
-//     }
-//
-//     window.api.offParticipantCountResponse();
-// }
-
 async function updateParticipantCount() {
     let index = 0;
     // Find the groupList element in the HTML

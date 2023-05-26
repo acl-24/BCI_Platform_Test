@@ -4,12 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="89841b7c-8444-48a6-9786-df9539487da7" name="Changes" comment="removed redundant css and python">
+    <list default="true" id="89841b7c-8444-48a6-9786-df9539487da7" name="Changes" comment="validated python process">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/preload.js" beforeDir="false" afterPath="$PROJECT_DIR$/preload.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,7 +53,8 @@
       <workItem from="1684534730126" duration="522000" />
       <workItem from="1684853262156" duration="22313000" />
       <workItem from="1684943290788" duration="10880000" />
-      <workItem from="1685028866532" duration="7384000" />
+      <workItem from="1685028866532" duration="7730000" />
+      <workItem from="1685114887018" duration="822000" />
     </task>
     <task id="LOCAL-00001" summary="Third edition with python">
       <created>1684859063892</created>
@@ -120,7 +119,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684965801287</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="validated python process">
+      <created>1685054752820</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1685054752820</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -145,6 +151,7 @@
     <MESSAGE value="removed irrelevant files" />
     <MESSAGE value="refactored css" />
     <MESSAGE value="removed redundant css and python" />
-    <option name="LAST_COMMIT_MESSAGE" value="removed redundant css and python" />
+    <MESSAGE value="validated python process" />
+    <option name="LAST_COMMIT_MESSAGE" value="validated python process" />
   </component>
 </project>
