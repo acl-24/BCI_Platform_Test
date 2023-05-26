@@ -53,7 +53,7 @@ async function getParticipantCount(roomName) {
                 },
             });
         const {data} = response;
-        console.log(data)
+        // console.log(data)
         return data.total_count;
     } catch (error) {
         console.error('Error occurred while fetching meeting participant count:', error);
@@ -64,12 +64,20 @@ async function getParticipantCount(roomName) {
 //ipcMain handlers
 //spawn python process using url
 ipcMain.on('startPythonProcess', (event, url) => {
+    let errorFlag = false;
     controlSession = spawnPythonProcess(url);
-    controlSession.stderr.on('data', (data) => {
+    controlSession.stdout.on('data', (data) => {
         const errorMessage = data.toString(); // Convert the error data to string
         console.error('Error occurred in the Python process:', errorMessage);
         // Handle the error as per your requirements
+        errorFlag = true;
     });
+
+    if (errorFlag){
+        event.reply('controlSessionStarted', 'off')
+    } else {
+        event.reply('controlSessionStarted', 'on')
+    }
 });
 
 //kill python process that has been created and running
@@ -77,6 +85,7 @@ ipcMain.on('endPythonProcess', (event) => {
     if (controlSession !== undefined && controlSession !== null) {
         controlSession.kill();
     }
+    event.reply('controlSessionEnded', 'off')
 });
 
 //respond in channel participantCountRetrieved upon receiving roomName from getParticipantCount channel

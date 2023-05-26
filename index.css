@@ -330,3 +330,7 @@ ul {
     display: table;
     margin: 0 auto;
 }
+
+#ctrl_share_status{
+    margin-right: 50px;
+}

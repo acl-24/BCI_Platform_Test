@@ -165,20 +165,29 @@ async function clickJoinRoom(index){
     section.style.display = 'block'
 
     //start session
+
     await startSession(itemUrl)
 }
 
 //session will both render the user to join a call and start share control, based on the url parameter
 async function startSession(url){
-    await joinCall(url)
-    await shareControl(url)
+    await joinCall(url);
+    let controlStatus = await shareControl(url);
+
+    const statusDisplay = document.getElementById('ctrl_share_status')
+    statusDisplay.innerHTML = "control sharing: " + controlStatus;
 }
 
 //calls main process on startPythonProcess channel and sets the current session url of user
 async function shareControl(url){
-    // Send a message to the main process
-    ipcRenderer.send('startPythonProcess', url);
-    currentURL = url;
+    return new Promise((resolve) => {
+        // Send a message to the main process
+        ipcRenderer.send('startPythonProcess', url);
+        currentURL = url;
+        window.api.onControlShareResponse((data) => {
+            resolve(data);
+        });
+    });
 }
 
 //click listener for return button, which hides the video section and calls end session with current URL
@@ -191,7 +200,10 @@ function clickReturn(){
 //leaves the meeting and end control sharing based on the current session url
 async function endSession(url){
     await leaveMeeting();
-    await endShareControl(url);
+    let controlStatus = await endShareControl(url);
+
+    const statusDisplay = document.getElementById('ctrl_share_status')
+    statusDisplay.innerHTML = "control sharing: " + controlStatus;
 }
 
 //user leaves meeting
@@ -205,8 +217,14 @@ async function leaveMeeting(){
 
 //calls main process on endPythonProcess channel to end session for url
 async function endShareControl(url){
-    // Send a message to the main process
-    ipcRenderer.send('endPythonProcess', url);
+    return new Promise((resolve) => {
+        // Send a message to the main process
+        ipcRenderer.send('endPythonProcess', url);
+
+        window.api.onControlShareResponse((data) => {
+            resolve(data);
+        });
+    });
 }
 
 

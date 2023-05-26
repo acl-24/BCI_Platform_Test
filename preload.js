@@ -17,6 +17,14 @@ contextBridge.exposeInMainWorld(    "api",
         },
         offParticipantCountResponse: () => {
             ipcRenderer.removeAllListeners('participantCountRetrieved');
+        },
+        onControlShareResponse: (callback) => {
+            ipcRenderer.on("controlSessionStarted", (event, args) => {
+                callback(args)
+            });
+            ipcRenderer.on("controlSessionEnded", (event, args) => {
+                callback(args)
+            });
         }
     }
 )
