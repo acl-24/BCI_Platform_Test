@@ -13,6 +13,6 @@ This demo hosts game sessions that allow online control, video and audio sharing
 ## Running locally
 
 1. Replace the room URL in `daily.js` with the URL of your own room.
-1. Install dependencies `npm i`
+1. Install dependencies `npm install`
 1. Run `npm start`
 
