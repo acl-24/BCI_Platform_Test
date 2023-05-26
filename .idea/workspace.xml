@@ -4,14 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="89841b7c-8444-48a6-9786-df9539487da7" name="Changes" comment="validated and integrated python process">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/index.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/preload.js" beforeDir="false" afterPath="$PROJECT_DIR$/preload.js" afterDir="false" />
-    </list>
+    <list default="true" id="89841b7c-8444-48a6-9786-df9539487da7" name="Changes" comment="python synchronization" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -57,7 +50,7 @@
       <workItem from="1684853262156" duration="22313000" />
       <workItem from="1684943290788" duration="10880000" />
       <workItem from="1685028866532" duration="7730000" />
-      <workItem from="1685114887018" duration="6660000" />
+      <workItem from="1685114887018" duration="7324000" />
     </task>
     <task id="LOCAL-00001" summary="Third edition with python">
       <created>1684859063892</created>
@@ -136,7 +129,14 @@
       <option name="project" value="LOCAL" />
       <updated>1685116021488</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="python synchronization">
+      <created>1685124039677</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1685124039677</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -163,6 +163,7 @@
     <MESSAGE value="removed redundant css and python" />
     <MESSAGE value="validated python process" />
     <MESSAGE value="validated and integrated python process" />
-    <option name="LAST_COMMIT_MESSAGE" value="validated and integrated python process" />
+    <MESSAGE value="python synchronization" />
+    <option name="LAST_COMMIT_MESSAGE" value="python synchronization" />
   </component>
 </project>

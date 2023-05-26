@@ -161,12 +161,12 @@ async function clickJoinRoom(index){
     const urlElement = tempElement.querySelector('p');
     const itemUrl = urlElement.textContent;
 
-    const section = document.getElementById('quit_section')
-    section.style.display = 'block'
 
     //start session
+    await startSession(itemUrl);
 
-    await startSession(itemUrl)
+    const section = document.getElementById('quit_section')
+    section.style.display = 'block'
 }
 
 //session will both render the user to join a call and start share control, based on the url parameter
