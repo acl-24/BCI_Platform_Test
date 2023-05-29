@@ -7,7 +7,7 @@ import threading
 
 HOST = "20.104.225.226"
 PORT = 8080
-url = 'hello'
+url = sys.argv[1]  # passed in from the main process
 TIMEOUT = 10
 
 def send_data(s, url, event):

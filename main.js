@@ -39,7 +39,7 @@ function createWindow() {
 //creates a python process, passing in url as session ID
 function spawnPythonProcess(url) {
     //running python in share.py file, parameter: url
-  return spawn('python', ['./python/test.py', url]);
+  return spawn('python', ['./python/share.py', url]);
 }
 
 //retrieve participant count from daily api, with apiKey
