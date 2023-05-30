@@ -4,12 +4,16 @@
   "description": "Daily.co prebuilt for video, audio and screen sharing",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "build": "electron-builder",
+    "package-python": "pyinstaller your-python-script.py"
   },
   "author": "Alex Liu",
   "license": "ISC",
   "devDependencies": {
     "electron": "^22.3.10",
+    "electron-builder": "^23.6.0",
+    "electron-winstaller": "^5.1.0",
     "prettier": "^2.8.3"
   },
   "dependencies": {

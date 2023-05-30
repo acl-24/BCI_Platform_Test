@@ -33,7 +33,7 @@ function createWindow() {
   win.removeMenu();
 
   //dev purpose only, remove on usage
-  win.webContents.openDevTools()
+  // win.webContents.openDevTools()
 }
 
 //creates a python process, passing in url as session ID
