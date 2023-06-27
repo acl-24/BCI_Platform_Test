@@ -73,6 +73,22 @@ async function createCallframe() {
     hideQuit()
 }
 
+async function clickScreenShare(){
+    callFrame.startScreenShare({
+        // track constraints
+        displayMediaOptions: {
+            audio: true,
+            selfBrowserSurface: 'exclude',
+            surfaceSwitching: 'include',
+            video: {
+                width: 1024,
+                height: 768,
+            },
+        },
+        // video send settings
+        screenVideoSendSettings: 'motion-and-detail-balanced',
+    });
+}
 //joinCall enters a room using the url
 async function joinCall(url) {
     try {
