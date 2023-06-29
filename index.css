@@ -17,7 +17,7 @@ body {
 
 .container {
     width: 100%;
-    height: calc(100% - 72px);
+    height: calc(100vh - 72px);
     top: 72px;
     background-color: var(--grey-lightest);
     position: relative;
@@ -300,6 +300,9 @@ body {
     margin-bottom: 10px;
     vertical-align: top;
     z-index:1;
+    height: 10vh;
+    width: 40vw;
+    min-width: 500px;
 }
 
 .group-list-item:last-child {
@@ -333,4 +336,9 @@ ul {
 
 #ctrl_share_status{
     margin-right: 50px;
+}
+
+#quit_section {
+    margin-bottom: 10px;
+    margin-top: 10px;
 }

@@ -4,7 +4,7 @@
     processes using ipcMain
  */
 //browser window and ipcMain for communication
-const { app, BrowserWindow, ipcMain} = require("electron");
+const { app, BrowserWindow, ipcMain, desktopCapturer} = require("electron");
 const path = require("path")
 //managing python threads
 const { spawn } = require('child_process');
@@ -18,10 +18,10 @@ const apiKey = '1a1f99bcddc9683e98ad57f556b127d222fc54b4ffa415a0205ed05e785ffc97
 // Create your BrowserWindow and load your HTML file
 //controlSession, used to hold the python process upon creation
 let controlSession;
-
+let win;
 //creates window and load preload.js and renderer.js
 function createWindow() {
-  const win = new BrowserWindow({
+  win = new BrowserWindow({
     width: 800,
     height: 700,
     webPreferences: {
@@ -33,7 +33,7 @@ function createWindow() {
   win.removeMenu();
 
   //dev purpose only, remove on usage
-  // win.webContents.openDevTools()
+  win.webContents.openDevTools()
 }
 
 //creates a python process, passing in url as session ID
@@ -87,6 +87,18 @@ ipcMain.on('endPythonProcess', (event) => {
     }
     event.reply('controlSessionEnded', 'off')
 });
+
+ipcMain.on('startScreenShare', (event) => {
+    desktopCapturer.getSources({types: ['window', 'screen']}).then(async sources => {
+        for (const source of sources) {
+            console.log(source)
+            if (source.name === 'Entire screen') {
+                win.webContents.send('SET_SOURCE', source.id)
+                return
+            }
+        }
+    })
+})
 
 //respond in channel participantCountRetrieved upon receiving roomName from getParticipantCount channel
 ipcMain.on('getParticipantCount', (event, roomName) => {

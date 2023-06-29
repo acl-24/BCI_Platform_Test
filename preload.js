@@ -25,6 +25,8 @@ contextBridge.exposeInMainWorld(    "api",
             ipcRenderer.on("controlSessionEnded", (event, args) => {
                 callback(args)
             });
-        }
+        },
     }
 )
+
+

@@ -7,7 +7,7 @@
 
 //callFrame that holds the meeting object
 //currentURL is the current session url
-let callFrame, currentURL;
+let callFrame, currentURL, shareOn;
 //Rooms to select from, to be displayed in the ul
 const data = [
     { name: 'Room 1', url: 'https://grhbcitest.daily.co/test1', room: 'test1' },
@@ -56,7 +56,7 @@ async function createCallframe() {
     callFrame = window.DailyIframe.createFrame(callWrapper,
         {
             showFullscreenButton: true,
-        }
+      }
     );
 
     callFrame
@@ -68,12 +68,25 @@ async function createCallframe() {
         .on('left-meeting', handleLeftMeeting);
 
     //hide return section and the callFrame when init
-    callFrame.iframe().style.height = '500px';
+    callFrame.iframe().style.height = '80vh';
     callFrame.iframe().style.display = 'none';
     hideQuit()
 }
 
 async function clickScreenShare(){
+    btn = document.getElementById('screen-share-btn')
+    if (shareOn === false){
+        startScreenAndAudioShare()
+        btn.innerHTML = 'Stop Screen Share with Audio'
+        shareOn = true
+    } else{
+        stopScreenAndAudioShare()
+        btn.innerHTML = 'Start Screen Share with Audio'
+        shareOn = false
+    }
+}
+
+function startScreenAndAudioShare(){
     callFrame.startScreenShare({
         // track constraints
         displayMediaOptions: {
@@ -89,6 +102,11 @@ async function clickScreenShare(){
         screenVideoSendSettings: 'motion-and-detail-balanced',
     });
 }
+
+function stopScreenAndAudioShare(){
+    callFrame.stopScreenShare()
+}
+
 //joinCall enters a room using the url
 async function joinCall(url) {
     try {
@@ -183,6 +201,7 @@ async function clickJoinRoom(index){
 
     const section = document.getElementById('quit_section')
     section.style.display = 'block'
+    shareOn = false;
 }
 
 //session will both render the user to join a call and start share control, based on the url parameter
@@ -211,6 +230,8 @@ function clickReturn(){
     hideQuit()
     callFrame.iframe().style.display = 'none';
     endSession(currentURL);
+    btn = document.getElementById('screen-share-btn')
+    btn.innerHTML = 'Start Audio Screen Share'
 }
 
 //leaves the meeting and end control sharing based on the current session url
