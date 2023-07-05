@@ -8,6 +8,7 @@
 //callFrame that holds the meeting object
 //currentURL is the current session url
 let callFrame, currentURL, shareOn;
+let showRoomsAllowed = true;
 //Rooms to select from, to be displayed in the ul
 const data = [
     { name: 'Room 1', url: 'https://grhbcitest.daily.co/test1', room: 'test1' },
@@ -19,7 +20,7 @@ const data = [
 const { ipcRenderer } = window.electron;
 // updates the participant count in each room every time interval
 window.setInterval('updateParticipantCount()', 2000);
-
+window.setInterval('refreshShowRoomsAllowed()', 5000)
 
 async function updateParticipantCount() {
     let index = 0;
@@ -129,9 +130,16 @@ async function joinCall(url) {
 }
 
 function clickShowRooms(){
-    const btn = document.getElementById('show-list-rooms')
-    btn.style.display = 'none';
-    populateGroupList();
+    if (showRoomsAllowed) {
+        const btn = document.getElementById('show-list-rooms')
+        btn.innerHTML = "Refresh List of Rooms"
+        populateGroupList();
+        showRoomsAllowed = false;
+    }
+}
+
+function refreshShowRoomsAllowed() {
+    showRoomsAllowed = true
 }
 
 //create list items for ul using the data global variable, fills in the room, name and url and join room button
