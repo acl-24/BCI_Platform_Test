@@ -22,12 +22,24 @@ contextBridge.exposeInMainWorld(    "api",
             ipcRenderer.on("controlSessionStarted", (event, args) => {
                 callback(args)
                 const statusDisplay = document.getElementById('ctrl_share_status')
+                const toggleDisplay = document.getElementById('ctrl_share_toggle')
                 statusDisplay.innerHTML = "control sharing: " + args;
+                if (args === 'on') {
+                    toggleDisplay.checked = true;
+                } else if (args === 'off') {
+                    toggleDisplay.checked = false;
+                }
             });
             ipcRenderer.on("controlSessionEnded", (event, args) => {
                 callback(args)
                 const statusDisplay = document.getElementById('ctrl_share_status')
+                const toggleDisplay = document.getElementById('ctrl_share_toggle')
                 statusDisplay.innerHTML = "control sharing: " + args;
+                if (args === 'on') {
+                    toggleDisplay.checked = true;
+                } else if (args === 'off') {
+                    toggleDisplay.checked = false;
+                }
             });
         },
     }

@@ -7,7 +7,7 @@
 
 //callFrame that holds the meeting object
 //currentURL is the current session url
-let callFrame, currentURL, shareOn;
+let callFrame, currentURL, shareOn, currentRoom;
 let showRoomsAllowed = true;
 //Rooms to select from, to be displayed in the ul
 const data = [
@@ -22,6 +22,21 @@ const { ipcRenderer } = window.electron;
 window.setInterval('updateParticipantCount()', 2000);
 window.setInterval('refreshShowRoomsAllowed()', 5000)
 
+document.addEventListener("DOMContentLoaded", function() {
+    const checkbox = document.getElementById('ctrl_share_toggle')
+
+    checkbox.addEventListener("change", function (event) {
+        // Code to be executed when the checkbox state changes
+        const statusDisplay = document.getElementById('ctrl_share_status')
+        if (event.target.checked) {
+            statusDisplay.innerHTML = "control sharing: " + "on";
+            shareControl(currentURL)
+        } else {
+            statusDisplay.innerHTML = "control sharing: " + "off";
+            endShareControl(currentURL)
+        }
+    })
+});
 async function updateParticipantCount() {
     let index = 0;
     // Find the groupList element in the HTML
@@ -210,6 +225,10 @@ async function clickJoinRoom(index){
     const section = document.getElementById('quit_section')
     section.style.display = 'block'
     shareOn = false;
+
+    currentRoom = itemUrl;
+    const toggle = document.getElementById('toggle_label')
+    toggle.style.display = "inline-block"
 }
 
 //session will both render the user to join a call and start share control, based on the url parameter
