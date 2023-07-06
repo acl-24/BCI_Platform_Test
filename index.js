@@ -245,10 +245,7 @@ function clickReturn(){
 //leaves the meeting and end control sharing based on the current session url
 async function endSession(url){
     await leaveMeeting();
-    let controlStatus = await endShareControl(url);
-
-    const statusDisplay = document.getElementById('ctrl_share_status')
-    statusDisplay.innerHTML = "control sharing: " + controlStatus;
+    await endShareControl(url);
 }
 
 //user leaves meeting

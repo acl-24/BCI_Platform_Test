@@ -21,9 +21,13 @@ contextBridge.exposeInMainWorld(    "api",
         onControlShareResponse: (callback) => {
             ipcRenderer.on("controlSessionStarted", (event, args) => {
                 callback(args)
+                const statusDisplay = document.getElementById('ctrl_share_status')
+                statusDisplay.innerHTML = "control sharing: " + args;
             });
             ipcRenderer.on("controlSessionEnded", (event, args) => {
                 callback(args)
+                const statusDisplay = document.getElementById('ctrl_share_status')
+                statusDisplay.innerHTML = "control sharing: " + args;
             });
         },
     }

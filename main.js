@@ -7,7 +7,7 @@
 const { app, BrowserWindow, ipcMain, desktopCapturer} = require("electron");
 const path = require("path")
 //managing python threads
-const { spawn } = require('child_process');
+const { spawn, execFile , fork} = require('child_process');
 //making http requests
 const axios = require('axios')
 
@@ -19,6 +19,9 @@ const apiKey = '1a1f99bcddc9683e98ad57f556b127d222fc54b4ffa415a0205ed05e785ffc97
 //controlSession, used to hold the python process upon creation
 let controlSession;
 let win;
+let errorFlag = false;
+let controlSessionOn = false;
+
 //creates window and load preload.js and renderer.js
 function createWindow() {
   win = new BrowserWindow({
@@ -34,12 +37,6 @@ function createWindow() {
 
   //dev purpose only, remove on usage
   win.webContents.openDevTools()
-}
-
-//creates a python process, passing in url as session ID
-function spawnPythonProcess(url) {
-    //running python in share.py file, parameter: url
-  return spawn('python', ['./python/share.py', url]);
 }
 
 //retrieve participant count from daily api, with apiKey
@@ -64,20 +61,20 @@ async function getParticipantCount(roomName) {
 //ipcMain handlers
 //spawn python process using url
 ipcMain.on('startPythonProcess', (event, url) => {
-    let errorFlag = false;
-    controlSession = spawnPythonProcess(url);
+    controlSession = execFile('python3', ['./python/share.py', url]);
     controlSession.stdout.on('data', (data) => {
+        const message = data.toString(); // Convert the error data to string
+        console.log(message)
+    })
+
+    controlSession.stderr.on('data', (data) => {
         const errorMessage = data.toString(); // Convert the error data to string
         console.error('Error occurred in the Python process:', errorMessage);
         // Handle the error as per your requirements
-        errorFlag = true;
+        event.reply('controlSessionStarted', 'off')
     });
 
-    if (errorFlag){
-        event.reply('controlSessionStarted', 'off')
-    } else {
-        event.reply('controlSessionStarted', 'on')
-    }
+    event.reply('controlSessionStarted', 'on')
 });
 
 //kill python process that has been created and running
@@ -110,6 +107,8 @@ ipcMain.on('getParticipantCount', (event, roomName) => {
         console.error(error);
       });
 });
+
+
 
 app.whenReady().then(() => {
   createWindow();
