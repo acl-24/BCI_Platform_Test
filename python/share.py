@@ -14,8 +14,7 @@ import time
 HOST = "35.182.207.173"
 PORT = 8080
 
-# url = sys.argv[1]  # passed in from the main process
-url = 'tuw'
+url = sys.argv[1]  # passed in from the main process
 
 # Virtual key codes for WASD
 VK_W = 0x57
