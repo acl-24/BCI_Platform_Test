@@ -22,12 +22,19 @@ VK_W = 0x57
 VK_A = 0x41
 VK_S = 0x53
 VK_D = 0x44
+VK_Q = 0x51
+VK_E = 0x45
+VK_LEFT = 0x25
+VK_UP = 0x26
+VK_RIGHT = 0x27
+VK_DOWN = 0x28
+VK_SPACE = 0x20
 
 def send_data(s, url, lock):
     global key_name
     global keys_allowed
     global last_key
-    keys_allowed = ['w', 'a', 's', 'd']
+    keys_allowed = ['w', 'a', 's', 'd', 'q', 'e', 'up', 'down', 'left', 'right', 'space']
 
     def on_press(key):
         global key_name
@@ -101,6 +108,21 @@ def receive_data(s, lock):
                 press_key(VK_S)
             if received_data['keyboard_inputs'] == 'd':
                 press_key(VK_D)
+            if received_data['keyboard_inputs'] == 'e':
+                press_key(VK_E)
+            if received_data['keyboard_inputs'] == 'q':
+                press_key(VK_Q)
+            if received_data['keyboard_inputs'] == 'up':
+                press_key(VK_UP)
+            if received_data['keyboard_inputs'] == 'left':
+                press_key(VK_LEFT)
+            if received_data['keyboard_inputs'] == 'down':
+                press_key(VK_DOWN)
+            if received_data['keyboard_inputs'] == 'right':
+                press_key(VK_RIGHT)
+            if received_data['keyboard_inputs'] == 'space':
+                press_key(VK_SPACE)
+
 
             sys.stdout.flush()
 
