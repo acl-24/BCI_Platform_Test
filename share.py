@@ -62,6 +62,7 @@ def send_data(s, url, lock):
                 print('data ready ' + key_name)
                 s.sendall(input_data_serialized)
                 print('data sent ' + key_name)
+                sys.stdout.flush()
                 # last_key = key_name
                 lock.release()
 
@@ -101,9 +102,14 @@ def receive_data(s, lock):
             if received_data['keyboard_inputs'] == 'd':
                 press_key(VK_D)
 
+            sys.stdout.flush()
+
         except ConnectionResetError:
             print("Connection to the server forcibly closed")
+            sys.stdout.flush()
             break
+
+
 
 
 
@@ -116,6 +122,7 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     except (socket.timeout, ConnectionRefusedError):
         print("Failed to connect to the server", file=sys.stderr)
         sys.exit(1)
+    sys.stdout.flush()
     url_data = pickle.dumps(url)
     s.sendall(url_data)
 
