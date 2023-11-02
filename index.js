@@ -258,7 +258,9 @@ function clickReturn(){
     callFrame.iframe().style.display = 'none';
     endSession(currentURL);
     btn = document.getElementById('screen-share-btn')
+    toggle = document.getElementById('toggle_label')
     btn.innerHTML = 'Start Audio Screen Share'
+    toggle.style.display = 'none'
 }
 
 //leaves the meeting and end control sharing based on the current session url

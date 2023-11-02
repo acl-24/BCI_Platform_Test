@@ -9,7 +9,7 @@
 const { app, BrowserWindow, ipcMain, desktopCapturer} = require("electron");
 const path = require("path")
 //managing python threads
-const { spawn, execFile , fork, execSync} = require('child_process');
+const { spawn, execFile , fork, execSync, exec} = require('child_process');
 //making http requests
 const axios = require('axios')
 const psTree = require('ps-tree');
@@ -60,8 +60,8 @@ async function getParticipantCount(roomName) {
     }
 }
 
-function getSubprocesses(pid, callback) {
-    psTree(pid, (err, children) => {
+async function getSubprocesses(pid, callback) {
+    await psTree(pid, (err, children) => {
         if (err) {
             console.error(err);
             return;
@@ -78,17 +78,16 @@ function getSubprocesses(pid, callback) {
 
 //ipcMain handlers
 //spawn python process using url
-ipcMain.on('startPythonProcess', (event, url) => {
-    controlSession = spawn("./python/dist/share.exe", [url]);
-    electronPid = process.pid;
-    getSubprocesses(electronPid, processTree  => {
-        for (const subprocess of processTree) {
-            console.log(`PID: ${subprocess.pid}, Command: ${subprocess.command}`);
-            if (subprocess.command === "share.exe"){
-                controlSessionList.push(subprocess.pid);
-            }
-        }
-    });
+ipcMain.on('startPythonProcess', async(event, url) => {
+    let subprocessPath;
+    if (app.isPackaged){
+        subprocessPath = path.join(app.getAppPath(), '..', 'app.asar.unpacked', 'share.exe');
+    } else {
+        subprocessPath = path.join(__dirname, 'share.exe')
+    }
+    let cmd = subprocessPath + " " + url;
+    controlSession = await exec(cmd);
+
     controlSession.stdout.on('data', (data) => {
         const message = data.toString(); // Convert the error data to string
         console.log(message)
@@ -105,16 +104,35 @@ ipcMain.on('startPythonProcess', (event, url) => {
 });
 
 //kill python process that has been created and running
-ipcMain.on('endPythonProcess', (event) => {
-    console.log(controlSessionList)
+ipcMain.on('endPythonProcess', async(event) => {
     if (controlSession !== undefined && controlSession !== null) {
+        let electronPid = process.pid;
+        const processTree = await new Promise((resolve, reject) => {
+            getSubprocesses(electronPid, processTree => {
+                resolve(processTree);
+            });
+        });
+
+        for (const subprocess of processTree) {
+            console.log(`PID: ${subprocess.pid}, Command: ${subprocess.command}`);
+            if (subprocess.command === "share.exe") {
+                controlSessionList.push(subprocess.pid);
+            }
+        }
+        console.log(controlSessionList);
         controlSessionList.forEach(pid => {
             cmd = "taskkill /PID " + pid + " /F";
             execSync(cmd);
             controlSessionList = []
         })
     }
-    event.reply('controlSessionEnded', 'off')
+    try {
+        event.reply('controlSessionEnded', 'off')
+    }
+    catch (error) {
+        console.log("replied quit")
+    }
+
 });
 
 ipcMain.on('startScreenShare', (event) => {
@@ -146,13 +164,28 @@ app.whenReady().then(() => {
   createWindow();
 });
 
-app.on('before-quit', () => {
+app.on('before-quit',  async(event) => {
+    event.preventDefault()
     if (controlSession !== undefined && controlSession !== null) {
+        let electronPid = process.pid;
+        const processTree = await new Promise((resolve, reject) => {
+            getSubprocesses(electronPid, processTree => {
+                resolve(processTree);
+            });
+        });
+
+        for (const subprocess of processTree) {
+            console.log(`PID: ${subprocess.pid}, Command: ${subprocess.command}`);
+            if (subprocess.command === "share.exe") {
+                controlSessionList.push(subprocess.pid);
+            }
+        }
         controlSessionList.forEach(pid => {
-            console.log(pid)
             cmd = "taskkill /PID " + pid + " /F";
             execSync(cmd);
+            controlSessionList = []
         })
     }
-})
+    app.exit();
+});
 

@@ -12,6 +12,7 @@ import win32con
 import time
 
 HOST = "35.182.207.173"
+# HOST = "127.0.0.1"
 PORT = 8080
 
 url = sys.argv[1]  # passed in from the main process
@@ -29,6 +30,8 @@ VK_UP = 0x26
 VK_RIGHT = 0x27
 VK_DOWN = 0x28
 VK_SPACE = 0x20
+
+RESET = 1314
 
 def send_data(s, url, lock):
     global key_name
@@ -56,7 +59,6 @@ def send_data(s, url, lock):
                 on_press=on_press,
                 on_release=on_release) as listener:
             listener.join()
-
 
         if key_name is not None and key_name in keys_allowed:
             if lock.acquire(blocking=False):
@@ -96,6 +98,9 @@ def receive_data(s, lock):
             received_data = pickle.loads(data)
             print('received: ' + received_data['keyboard_inputs'])
 
+            if receive_data == RESET:
+                raise ConnectionResetError
+
             if lock.acquire(blocking=False):
                 last_key = received_data['keyboard_inputs']
                 lock.release()
@@ -127,7 +132,7 @@ def receive_data(s, lock):
             sys.stdout.flush()
 
         except ConnectionResetError:
-            print("Connection to the server forcibly closed")
+            print("Connection to the server is closed")
             sys.stdout.flush()
             break
 

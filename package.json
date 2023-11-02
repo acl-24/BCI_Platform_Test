@@ -6,7 +6,18 @@
   "scripts": {
     "start": "electron .",
     "build": "electron-builder",
-    "package-python": "pyinstaller your-python-script.py"
+    "package-python": "pyinstaller your-python-script.py",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
+  },
+  "build": {
+    "appId": "grh_bci_gaming_platform",
+    "asarUnpack" : [
+      "share.exe"
+    ],
+    "win": {
+      "icon" : "./assets/android-chrome-512x512.ico"
+    }
   },
   "author": "Alex Liu",
   "license": "ISC",
@@ -19,6 +30,7 @@
   "dependencies": {
     "@daily-co/daily-js": "^0.44.1",
     "axios": "^1.4.0",
-    "electron-fetch": "^1.9.1"
+    "electron-fetch": "^1.9.1",
+    "ps-tree": "^1.2.0"
   }
 }
